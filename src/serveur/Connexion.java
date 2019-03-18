@@ -26,12 +26,12 @@ public class Connexion extends Thread{
     
     
     private Socket socketService;
-    private Serveur monServeur;
+    private EcouteurConnexion monServeur;
     private int ID  = -1; 
     private DataInputStream  streamIn  =  null;
     private DataOutputStream streamOut = null;
     
-    public Connexion(Socket laSocket,Serveur leServeur)
+    public Connexion(Socket laSocket,EcouteurConnexion leServeur)
     {
         super();
         socketService= laSocket;
