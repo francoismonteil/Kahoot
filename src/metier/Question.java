@@ -5,13 +5,30 @@
  */
 package metier;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Black
  */
-public class Question {
+public class Question implements Serializable{
     private int noQuestion;
     private String texteQuestion;
+    private List<Reponse> repsPossibles;
+    private Reponse resExacte;
+    private Reponse repUtilisateur;
     
-    
+    public Question()
+    {
+        this.noQuestion = 1;
+        this.texteQuestion = "Quel est le vrai nom de M.Bean ?";
+        this.repsPossibles = new ArrayList<>();
+        
+        Reponse rep1 = new Reponse(1, "Rowan Atkinson", this.noQuestion);
+        this.repsPossibles.add(rep1);
+        
+        this.resExacte = rep1;
+    }
 }
