@@ -76,7 +76,7 @@ public class Serveur extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         try {
-            EcouteurConnexion srv = new EcouteurConnexion();
+            EcouteurConnexion srv = new EcouteurConnexion(jTextArea1);
         } catch (IOException ex) {
             Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
         }

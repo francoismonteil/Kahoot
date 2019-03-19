@@ -5,6 +5,7 @@
  */
 package serveur;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -19,18 +21,21 @@ import java.util.logging.Logger;
  */
 public class EcouteurConnexion extends Thread{
     
-    
+    private JTextArea zoneAffichage;
     private ServerSocket socketEcoute = null;
     protected static List<Connexion> lesConnexionsClient = new ArrayList<Connexion>();
     protected int nbClients = 0;
    
-    public EcouteurConnexion() throws IOException
+    public EcouteurConnexion(JTextArea ta) throws IOException
     {
         System.out.println("Serveur - Ouverture d'un SocketServer sur le port 50000 ");
+        ta.append("Serveur - Ouverture d'un SocketServer sur le port 50000 ");
         socketEcoute = new ServerSocket(50000);
         System.out.println("Serveur démarré : " + socketEcoute);
+        ta.append("\nServeur démarré : \n" + socketEcoute);
         
     }
+    
      @Override
     public void run() {
         Socket uneSocketClient;
@@ -42,6 +47,7 @@ public class EcouteurConnexion extends Thread{
                     System.out.println("En attente d'un client ");
                     uneSocketClient = socketEcoute.accept();
                     ajoutConnexion(uneSocketClient);
+                    
                 }            
             } catch (IOException ex) {
                 Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
@@ -155,14 +161,14 @@ public class EcouteurConnexion extends Thread{
     public static void main(String[] args) /*throws InterruptedException*/ {
         
         EcouteurConnexion monThreadServeur;
-        try {
+        /*try {
             monThreadServeur = new EcouteurConnexion();
             monThreadServeur.start();
             
         } catch (IOException ex) 
         {
             Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         
                 
     }
