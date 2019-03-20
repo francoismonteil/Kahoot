@@ -28,10 +28,12 @@ public class EcouteurConnexion extends Thread{
     public EcouteurConnexion(JTextArea ta) throws IOException
     {
         System.out.println("Serveur - Ouverture d'un SocketServer sur le port 50000 ");
-        ta.append("Serveur - Ouverture d'un SocketServer sur le port 50000 ");
+        this.zoneAffichage = ta;
+        ta.append("["+System.currentTimeMillis()+"] Serveur - Ouverture d'un SocketServer sur le port 50000\n");
         socketEcoute = new ServerSocket(50000);
         System.out.println("Serveur démarré : " + socketEcoute);
-        ta.append("\nServeur démarré : \n" + socketEcoute);
+        ta.append("["+System.currentTimeMillis()+"] Serveur démarré : \n");
+        ta.append("["+System.currentTimeMillis()+"] "+socketEcoute + "\n");
         
     }
     
@@ -45,11 +47,13 @@ public class EcouteurConnexion extends Thread{
                 {
                     System.out.println("En attente d'un client ");
                     uneSocketClient = socketEcoute.accept();
+                    zoneAffichage.append("["+System.currentTimeMillis()+"] Joueur connecté !");
                     ajoutConnexion(uneSocketClient);
                     
                 }            
             } catch (IOException ex) {
-                Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
+                //Si tu gère le code erreur autant enlever le message d'exception qui vient polluer la console
                 Thread.currentThread().interrupt();
             
             }
