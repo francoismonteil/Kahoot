@@ -3,3 +3,5 @@ dist/Kahoot.jar
 *.properties
 nbproject/private/private.properties
 nbproject/private/private.xml
+*.xml
+*.properties
