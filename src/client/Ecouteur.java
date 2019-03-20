@@ -38,6 +38,7 @@ public class Ecouteur extends Thread{
         while (this.isInterrupted() == false)
         {
            String line;
+           dialog.append("Client : Connexion au jeu Kahoot");
             try {
                 while((line=buffer.readLine()) != null)
                 {

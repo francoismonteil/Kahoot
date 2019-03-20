@@ -47,7 +47,7 @@ public class EcouteurConnexion extends Thread{
                 {
                     System.out.println("En attente d'un client ");
                     uneSocketClient = socketEcoute.accept();
-                    zoneAffichage.append("["+System.currentTimeMillis()+"] Joueur connecté !");
+                    zoneAffichage.append("\n["+System.currentTimeMillis()+"] Joueur connecté ! " + uneSocketClient);
                     ajoutConnexion(uneSocketClient);
                     
                 }            
