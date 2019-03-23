@@ -7,26 +7,20 @@ package serveur;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
  * @author isabelle
  */
 public class Connexion extends Thread{
     
-    
-    private Socket socketService;
-    private EcouteurConnexion monServeur;
+    private final Socket socketService;
+    private final EcouteurConnexion monServeur;
     private int ID  = -1; 
     private DataInputStream  streamIn  =  null;
     private DataOutputStream streamOut = null;
@@ -37,7 +31,12 @@ public class Connexion extends Thread{
         socketService= laSocket;
         monServeur = leServeur;
         ID = socketService.getPort();
-        
+        try {
+            streamIn = new DataInputStream(new BufferedInputStream(socketService.getInputStream()));
+        } catch (IOException ex) {
+            System.out.println("Connexion : Problème d'instanciation du streamIn");
+            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public void send(String msg)
     {
@@ -88,17 +87,20 @@ public class Connexion extends Thread{
     @Override
     public void run() {
         
-        while (!Thread.currentThread().isInterrupted())
+        while (this.isInterrupted() == false)
         {
-            try 
-            {
-                envoyerMessage(streamIn.readUTF());
-            
-            } catch (IOException ex) 
-            {
-                Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
-                monServeur.remove(ID);
-                //interrupt();
+            String line;
+            try {
+                while((line=this.streamIn.readUTF()) != null)
+                {
+                    System.out.println("Connexion : "+line);
+                }
+            } catch (IOException ex) {
+               try {
+                   this.streamIn.close();
+               } catch (IOException ex1) {
+                   //Logger.getLogger(Ecouteur.class.getName()).log(Level.SEVERE, null, ex1);
+               }
             }
         }
     }

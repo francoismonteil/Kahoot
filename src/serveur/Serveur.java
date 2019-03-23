@@ -50,8 +50,14 @@ public class Serveur extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Début Partie");
+        jButton2.setEnabled(false);
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
@@ -64,6 +70,12 @@ public class Serveur extends javax.swing.JFrame {
         });
 
         jButton3.setText("Fin de Partie");
+        jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,6 +118,7 @@ public class Serveur extends javax.swing.JFrame {
         try {
             EcouteurConnexion srv = new EcouteurConnexion(jTextArea1);
             srv.start();
+            this.jButton1.setEnabled(false);
         } catch (IOException ex) {
             Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,7 +132,18 @@ public class Serveur extends javax.swing.JFrame {
         // Lancer les questions aux clients
         Question q = new Question();
         jTextArea1.append(q.texteQuestion+"\n");
+        this.jButton2.setEnabled(false);
+        this.jButton3.setEnabled(true);
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.jButton3.setEnabled(false);
+        this.jButton2.setEnabled(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
