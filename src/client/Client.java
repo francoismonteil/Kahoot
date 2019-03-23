@@ -27,28 +27,49 @@ public class Client extends javax.swing.JFrame {
     public Client() {
         initComponents();
         try {
+            //On se connecte au serveur Kahoot
             this.connect();
+            
+            //On instancie un nouvel objet Ecouteur
             this.ecouteur = new Ecouteur(this.client, this.jTextArea_messages);
             this.ecouteur.start();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    /**
+     * Connect : essai de se connecter au serveur
+     * @throws IOException 
+     */
     private void connect() throws IOException
     {
+        try{
         String local ="127.0.0.1";
         client = new Socket(local, 50000);
+        }catch(IOException e)
+        {
+            System.out.println("Echec de la connexion au serveur");
+            System.exit(1);
+        }
         System.out.println("CLIENT - Connecté !");
         
         print = new PrintWriter(client.getOutputStream(), true);
     }
     
+    /**
+     * addTexte : Permet d'ajouter du texte dans la zone de dialogue
+     * @param Qui
+     * @param message 
+     */
     public void addTexte(String Qui, String message)
     {
-        this.jTextArea_messages.append("<b>"+Qui+"</b> : "+message+"\n");
+        this.jTextArea_messages.append(Qui+" : "+message+"\n");
     }    
     
+    /**
+     * dispose : redéfinition de la fonction dispose afin de se déconnecter du serveur
+     */
     @Override
     public void dispose()
     {
@@ -56,6 +77,14 @@ public class Client extends javax.swing.JFrame {
         System.exit(0);
     }
     
+    private void send()
+    {
+        
+    }
+    
+    /**
+     * disconnect : se déconnecte proprement du serveur
+     */
     private void disconnect()
     {
         try {
@@ -81,9 +110,11 @@ public class Client extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jTextArea_messages.setEditable(false);
         jTextArea_messages.setColumns(20);
         jTextArea_messages.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         jTextArea_messages.setRows(5);
+        jTextArea_messages.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea_messages);
 
         jTextField_input.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
@@ -91,6 +122,11 @@ public class Client extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jButton1.setText("Envoyer");
         jButton1.setPreferredSize(new java.awt.Dimension(6, 29));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,6 +157,17 @@ public class Client extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String texte = this.jTextField_input.getText();
+        if (texte == null)
+        {
+            this.addTexte("Kahoot", "Vous n'avez rien écrit");
+        } else {
+            this.addTexte("Vous", texte);
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -149,10 +196,8 @@ public class Client extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Client().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Client().setVisible(true);
         });
     }
 
