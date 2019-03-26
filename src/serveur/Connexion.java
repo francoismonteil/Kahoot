@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metier.Reponse;
 /**
  *
  * @author isabelle
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 public class Connexion extends Thread{
     
     private final Socket socketService;
+    private Reponse reponse;
     private final EcouteurConnexion monServeur;
     private int ID  = -1; 
     private ObjectInputStream  streamIn  =  null;
@@ -48,12 +50,11 @@ public class Connexion extends Thread{
         }
     }
    
-     public void open() throws IOException
+    public void open() throws IOException
     {  
-        streamIn = new ObjectInputStream(new 
-                        BufferedInputStream(socketService.getInputStream()));
-        
+        streamIn = new ObjectInputStream(new BufferedInputStream(socketService.getInputStream()));
     }
+     
     public void close() throws IOException
     {
         if (socketService != null) socketService.close();
@@ -61,23 +62,6 @@ public class Connexion extends Thread{
         if (streamOut != null) streamOut.close();
     }
     
-    /*public synchronized void envoyerMessage(String msg)
-    {
-        Connexion c;
-        c = monServeur.findConnexion(ID);
-        for (Connexion cc : monServeur.getConnexions())
-        {
-            
-           cc.send(ID + " : " + msg);
-            
-        }
-        if (msg.equals("SALUT"))
-        {
-            c.send(ID + " : "+ msg);
-            monServeur.remove(ID);
-        }
-     
-    }*/
     @Override
     public void run() {
         
@@ -85,22 +69,15 @@ public class Connexion extends Thread{
         {
             try {
                 streamIn = new ObjectInputStream(new BufferedInputStream(socketService.getInputStream()));
-            } catch (IOException ex) {
-                Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            String line;
-            try {
-                while((line=this.streamIn.readUTF()) != null)
-                {
-                    System.out.println("Connexion : "+line);
+                try {
+                    reponse = (Reponse) this.streamIn.readObject();
+                    monServeur.recupReponse(reponse);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } catch (IOException ex) {
-               try {
-                   this.streamIn.close();
-               } catch (IOException ex1) {
-                   //Logger.getLogger(Ecouteur.class.getName()).log(Level.SEVERE, null, ex1);
-               }
-            }
+                Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+            }            
         }
     }
 
