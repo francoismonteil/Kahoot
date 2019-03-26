@@ -76,7 +76,7 @@ public class Client extends javax.swing.JFrame {
         System.exit(0);
     }
     
-    private void send(Reponse reponse)
+    private void send(Object reponse)
     {
         try
         {
@@ -116,6 +116,8 @@ public class Client extends javax.swing.JFrame {
         jButton_rep3 = new javax.swing.JButton();
         jButton_rep2 = new javax.swing.JButton();
         jLabel_header = new javax.swing.JLabel();
+        jTextField_pseudo = new javax.swing.JTextField();
+        jButton_pseudo = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -124,6 +126,7 @@ public class Client extends javax.swing.JFrame {
         jButton_rep4.setBackground(new java.awt.Color(0, 127, 1));
         jButton_rep4.setForeground(new java.awt.Color(255, 255, 255));
         jButton_rep4.setText("Reponse 4");
+        jButton_rep4.setEnabled(false);
         jButton_rep4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_rep4ActionPerformed(evt);
@@ -133,6 +136,7 @@ public class Client extends javax.swing.JFrame {
         jButton_rep1.setBackground(new java.awt.Color(240, 79, 59));
         jButton_rep1.setForeground(new java.awt.Color(255, 255, 255));
         jButton_rep1.setText("Reponse 1");
+        jButton_rep1.setEnabled(false);
         jButton_rep1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_rep1ActionPerformed(evt);
@@ -142,6 +146,7 @@ public class Client extends javax.swing.JFrame {
         jButton_rep3.setBackground(new java.awt.Color(255, 149, 9));
         jButton_rep3.setForeground(new java.awt.Color(255, 255, 255));
         jButton_rep3.setText("Reponse 3");
+        jButton_rep3.setEnabled(false);
         jButton_rep3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_rep3ActionPerformed(evt);
@@ -151,6 +156,7 @@ public class Client extends javax.swing.JFrame {
         jButton_rep2.setBackground(new java.awt.Color(43, 56, 221));
         jButton_rep2.setForeground(new java.awt.Color(255, 255, 255));
         jButton_rep2.setText("Reponse 2");
+        jButton_rep2.setEnabled(false);
         jButton_rep2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_rep2ActionPerformed(evt);
@@ -160,6 +166,16 @@ public class Client extends javax.swing.JFrame {
         jLabel_header.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel_header.setText("Kahoot");
 
+        jTextField_pseudo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextField_pseudo.setText("Pseudo");
+
+        jButton_pseudo.setText("Choisir");
+        jButton_pseudo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_pseudoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,26 +183,31 @@ public class Client extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addComponent(jLabel_header)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton_rep1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addComponent(jButton_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel_header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jButton_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField_pseudo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_pseudo)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(jLabel_header, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_pseudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_pseudo))
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_rep1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -219,6 +240,13 @@ public class Client extends javax.swing.JFrame {
         // TODO add your handling code here:
         send(ecouteur.getRep4());
     }//GEN-LAST:event_jButton_rep4ActionPerformed
+
+    private void jButton_pseudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_pseudoActionPerformed
+        // TODO add your handling code here:
+        send(this.jTextField_pseudo.getText());
+        this.jTextField_pseudo.setEnabled(false);
+        this.jButton_pseudo.setEnabled(false);
+    }//GEN-LAST:event_jButton_pseudoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,11 +286,13 @@ public class Client extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_pseudo;
     private javax.swing.JButton jButton_rep1;
     private javax.swing.JButton jButton_rep2;
     private javax.swing.JButton jButton_rep3;
     private javax.swing.JButton jButton_rep4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel_header;
+    private javax.swing.JTextField jTextField_pseudo;
     // End of variables declaration//GEN-END:variables
 }
