@@ -1,3 +1,11 @@
 /build/
 dist/Kahoot.jar
 *.properties
+nbproject/private/private.properties
+nbproject/private/private.xml
+*.xml
+*.properties
+nbproject/private/private.properties
+nbproject/private/private.xml
+nbproject/private/private.xml
+nbproject/private/private.properties

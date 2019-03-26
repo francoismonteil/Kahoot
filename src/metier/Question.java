@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Question implements Serializable{
     private int noQuestion;
-    private String texteQuestion;
+    public String texteQuestion;
     private List<Reponse> repsPossibles;
     private Reponse resExacte;
     private Reponse repUtilisateur;
@@ -28,7 +28,8 @@ public class Question implements Serializable{
         
         Reponse rep1 = new Reponse(1, "Rowan Atkinson", this.noQuestion);
         this.repsPossibles.add(rep1);
-        
+        Reponse rep2 = new Reponse(2, "John McCain", this.noQuestion);
+        this.repsPossibles.add(rep2);
         this.resExacte = rep1;
     }
 }
