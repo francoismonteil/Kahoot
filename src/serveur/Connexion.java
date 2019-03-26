@@ -7,9 +7,9 @@ package serveur;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,8 +22,8 @@ public class Connexion extends Thread{
     private final Socket socketService;
     private final EcouteurConnexion monServeur;
     private int ID  = -1; 
-    private DataInputStream  streamIn  =  null;
-    private DataOutputStream streamOut = null;
+    private ObjectInputStream  streamIn  =  null;
+    private ObjectOutputStream streamOut = null;
     
     public Connexion(Socket laSocket,EcouteurConnexion leServeur)
     {
@@ -32,17 +32,17 @@ public class Connexion extends Thread{
         monServeur = leServeur;
         ID = socketService.getPort();
         try {
-            streamIn = new DataInputStream(new BufferedInputStream(socketService.getInputStream()));
+            streamIn = new ObjectInputStream(new BufferedInputStream(socketService.getInputStream()));
         } catch (IOException ex) {
             System.out.println("Connexion : Problème d'instanciation du streamIn");
             Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void send(String msg)
+    public void send(Object msg)
     {
         try
         {
-            streamOut.writeUTF(msg);
+            streamOut.writeObject(msg);
             streamOut.flush();
         }
         catch (IOException ex)
@@ -55,9 +55,9 @@ public class Connexion extends Thread{
    
      public void open() throws IOException
     {  
-        streamIn = new DataInputStream(new 
+        streamIn = new ObjectInputStream(new 
                         BufferedInputStream(socketService.getInputStream()));
-        streamOut = new DataOutputStream(new
+        streamOut = new ObjectOutputStream(new
                         BufferedOutputStream(socketService.getOutputStream()));
     }
     public void close() throws IOException

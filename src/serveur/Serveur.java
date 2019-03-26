@@ -15,7 +15,7 @@ import metier.Question;
  * @author alexandre
  */
 public class Serveur extends javax.swing.JFrame {
-
+    private EcouteurConnexion srv;
     /**
      * Creates new form Serveur
      */
@@ -57,7 +57,6 @@ public class Serveur extends javax.swing.JFrame {
         });
 
         jButton2.setText("Début Partie");
-        jButton2.setEnabled(false);
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
@@ -70,7 +69,6 @@ public class Serveur extends javax.swing.JFrame {
         });
 
         jButton3.setText("Fin de Partie");
-        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -116,9 +114,8 @@ public class Serveur extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         try {
-            EcouteurConnexion srv = new EcouteurConnexion(jTextArea1);
+            srv = new EcouteurConnexion(jTextArea1);
             srv.start();
-            this.jButton1.setEnabled(false);
         } catch (IOException ex) {
             Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -130,10 +127,8 @@ public class Serveur extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // Lancer les questions aux clients
-        Question q = new Question();
-        jTextArea1.append(q.texteQuestion+"\n");
-        this.jButton2.setEnabled(false);
-        this.jButton3.setEnabled(true);
+        srv.envoieQuestion();
+
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -141,8 +136,7 @@ public class Serveur extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.jButton3.setEnabled(false);
-        this.jButton2.setEnabled(true);
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

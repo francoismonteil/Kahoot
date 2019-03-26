@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
+import metier.Question;
 
 /**
  *
@@ -102,10 +103,9 @@ public class EcouteurConnexion extends Thread{
         }
         else
         {
-            for (Connexion cc : lesConnexionsClient)
-            {
+            lesConnexionsClient.forEach((cc) -> {
                 cc.send(ID + " : " + msg);
-            }
+            });
         }
     }
     public Connexion findConnexion(int ID)
@@ -158,10 +158,17 @@ public class EcouteurConnexion extends Thread{
     public void etatConnexions()
     {
         System.out.println("Clients connectés : ");
-        for (Connexion c : lesConnexionsClient)
-        {
+        lesConnexionsClient.forEach((c) -> {
             System.out.println("Connexion : "+ c.getName() + " - " + c.getID() + " Status : " + c.getState());
-        }
+        });
+    }
+    
+    public void envoieQuestion()
+    {
+        Question q = new Question();
+        lesConnexionsClient.forEach((c) -> {
+            c.send(q);
+        });
     }
     public static void main(String[] args) /*throws InterruptedException*/ {
         
