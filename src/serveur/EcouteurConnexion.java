@@ -167,7 +167,7 @@ public class EcouteurConnexion extends Thread{
     
     public void recupReponse(Reponse reponse)
     {
-        zoneAffichage.append("Réponse client : ");
+        zoneAffichage.append("\nRéponse client : " + reponse.getTexteReponse());
     }
     public static void main(String[] args) /*throws InterruptedException*/ {
         
