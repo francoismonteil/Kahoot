@@ -32,4 +32,45 @@ public class Question implements Serializable{
         this.repsPossibles.add(rep2);
         this.resExacte = rep1;
     }
+    
+    public int getNoQuestion() {
+        return noQuestion;
+    }
+
+    public void setNoQuestion(int noQuestion) {
+        this.noQuestion = noQuestion;
+    }
+
+    public String getTexteQuestion() {
+        return texteQuestion;
+    }
+
+    public void setTexteQuestion(String texteQuestion) {
+        this.texteQuestion = texteQuestion;
+    }
+
+    public List<Reponse> getRepsPossibles() {
+        return repsPossibles;
+    }
+
+    public void setRepsPossibles(List<Reponse> repsPossibles) {
+        this.repsPossibles = repsPossibles;
+    }
+
+    public Reponse getResExacte() {
+        return resExacte;
+    }
+
+    public void setResExacte(Reponse resExacte) {
+        this.resExacte = resExacte;
+    }
+
+    public Reponse getRepUtilisateur() {
+        return repUtilisateur;
+    }
+
+    public void setRepUtilisateur(Reponse repUtilisateur) {
+        this.repUtilisateur = repUtilisateur;
+    }
+    
 }
