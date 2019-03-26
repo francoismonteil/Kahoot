@@ -26,10 +26,15 @@ public class Ecouteur extends Thread{
     private JTextArea dialog;
     private ObjectInputStream  streamIn;
     private Question question;
-    private JButton rep1;
-    private JButton rep2;
-    private JButton rep3;
-    private JButton rep4;
+    private JButton button_rep1;
+    private JButton button_rep2;
+    private JButton button_rep3;
+    private JButton button_rep4;
+    private Reponse rep1;
+    private Reponse rep2;
+    private Reponse rep3;
+    private Reponse rep4;
+    
     
     /**
      * Ecouteur : On définit les attribut de la classe
@@ -45,10 +50,10 @@ public class Ecouteur extends Thread{
             this.client = client;
             this.dialog = dialog;
             dialog.append("Client : Connexion au jeu Kahoot\n");
-            this.rep1 = rep1;
-            this.rep2 = rep2;
-            this.rep3 = rep3;
-            this.rep4 = rep4;
+            this.button_rep1 = rep1;
+            this.button_rep2 = rep2;
+            this.button_rep3 = rep3;
+            this.button_rep4 = rep4;
     }
     
     /**
@@ -72,32 +77,36 @@ public class Ecouteur extends Thread{
                 {
                     if (question.getRepsPossibles().get(0) != null)
                     {
-                        this.rep1.setEnabled(true);
-                        this.rep1.setText(question.getRepsPossibles().get(0).getTexteReponse());
+                        this.button_rep1.setEnabled(true);
+                        this.button_rep1.setText(question.getRepsPossibles().get(0).getTexteReponse());
+                        this.rep1 = question.getRepsPossibles().get(0);
                     }
                     else
-                        this.rep1.setEnabled(false);
+                        this.button_rep1.setEnabled(false);
                     if (question.getRepsPossibles().get(1) != null)
                     {
-                        this.rep2.setEnabled(true);
-                        this.rep2.setText(question.getRepsPossibles().get(1).getTexteReponse());
+                        this.button_rep2.setEnabled(true);
+                        this.button_rep2.setText(question.getRepsPossibles().get(1).getTexteReponse());
+                        this.rep2 = question.getRepsPossibles().get(1);
                     }
                     else
-                        this.rep2.setEnabled(false);
+                        this.button_rep2.setEnabled(false);
                     if (question.getRepsPossibles().get(2) != null)
                     {
-                        this.rep3.setEnabled(true);
-                        this.rep3.setText(question.getRepsPossibles().get(2).getTexteReponse());
+                        this.button_rep3.setEnabled(true);
+                        this.button_rep3.setText(question.getRepsPossibles().get(2).getTexteReponse());
+                        this.rep3 = question.getRepsPossibles().get(2);
                     }
                     else
-                        this.rep3.setEnabled(false);
+                        this.button_rep3.setEnabled(false);
                     if (question.getRepsPossibles().get(3) != null)
                     {
-                        this.rep4.setEnabled(true);
-                        this.rep4.setText(question.getRepsPossibles().get(3).getTexteReponse());
+                        this.button_rep4.setEnabled(true);
+                        this.button_rep4.setText(question.getRepsPossibles().get(3).getTexteReponse());
+                        this.rep4 = question.getRepsPossibles().get(3);
                     }
                     else
-                        this.rep4.setEnabled(false);
+                        this.button_rep4.setEnabled(false);
                 }
                
                 
@@ -113,6 +122,25 @@ public class Ecouteur extends Thread{
         }
     }
     
+    public Reponse getRep1()
+    {
+        return rep1;
+    }
+    
+    public Reponse getRep2()
+    {
+        return rep2;
+    }
+        
+    public Reponse getRep3()
+    {
+        return rep3;
+    }
+            
+    public Reponse getRep4()
+    {
+        return rep4;
+    }
     
     
 }

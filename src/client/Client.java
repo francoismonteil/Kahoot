@@ -142,6 +142,11 @@ public class Client extends javax.swing.JFrame {
         jButton_rep4.setBackground(new java.awt.Color(0, 127, 1));
         jButton_rep4.setForeground(new java.awt.Color(255, 255, 255));
         jButton_rep4.setText("Reponse 4");
+        jButton_rep4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_rep4ActionPerformed(evt);
+            }
+        });
 
         jButton_rep1.setBackground(new java.awt.Color(240, 79, 59));
         jButton_rep1.setForeground(new java.awt.Color(255, 255, 255));
@@ -155,10 +160,20 @@ public class Client extends javax.swing.JFrame {
         jButton_rep3.setBackground(new java.awt.Color(255, 149, 9));
         jButton_rep3.setForeground(new java.awt.Color(255, 255, 255));
         jButton_rep3.setText("Reponse 3");
+        jButton_rep3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_rep3ActionPerformed(evt);
+            }
+        });
 
         jButton_rep2.setBackground(new java.awt.Color(43, 56, 221));
         jButton_rep2.setForeground(new java.awt.Color(255, 255, 255));
         jButton_rep2.setText("Reponse 2");
+        jButton_rep2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_rep2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,8 +220,23 @@ public class Client extends javax.swing.JFrame {
 
     private void jButton_rep1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep1ActionPerformed
         // TODO add your handling code here:
-        
+        send(ecouteur.getRep1());
     }//GEN-LAST:event_jButton_rep1ActionPerformed
+
+    private void jButton_rep2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep2ActionPerformed
+        // TODO add your handling code here:
+        send(ecouteur.getRep2());
+    }//GEN-LAST:event_jButton_rep2ActionPerformed
+
+    private void jButton_rep3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep3ActionPerformed
+        // TODO add your handling code here:
+        send(ecouteur.getRep3());
+    }//GEN-LAST:event_jButton_rep3ActionPerformed
+
+    private void jButton_rep4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep4ActionPerformed
+        // TODO add your handling code here:
+        send(ecouteur.getRep4());
+    }//GEN-LAST:event_jButton_rep4ActionPerformed
 
     /**
      * @param args the command line arguments

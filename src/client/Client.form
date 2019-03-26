@@ -118,6 +118,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Reponse 4"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_rep4ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton_rep1">
       <Properties>
@@ -143,6 +146,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Reponse 3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_rep3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton_rep2">
       <Properties>
@@ -154,6 +160,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Reponse 2"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_rep2ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
