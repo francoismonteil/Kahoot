@@ -30,6 +30,10 @@ public class Question implements Serializable{
         this.repsPossibles.add(rep1);
         Reponse rep2 = new Reponse(2, "John McCain", this.noQuestion);
         this.repsPossibles.add(rep2);
+        Reponse rep3 = new Reponse(3, "Ronald McDonald", this.noQuestion);
+        this.repsPossibles.add(rep3);
+        Reponse rep4 = new Reponse(4, "Colonel Sanders", this.noQuestion);
+        this.repsPossibles.add(rep4);
         this.resExacte = rep1;
     }
     

@@ -39,7 +39,8 @@ public class Client extends javax.swing.JFrame {
             streamOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
             
             //On instancie un nouvel objet Ecouteur
-            this.ecouteur = new Ecouteur(this.client, this.jTextArea_messages);
+            this.ecouteur = new Ecouteur(this.client, this.jTextArea_messages,
+            this.jButton_rep1, this.jButton_rep2, this.jButton_rep3, this.jButton_rep4);
             this.ecouteur.start();
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,10 +120,15 @@ public class Client extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea_messages = new javax.swing.JTextArea();
-        jTextField_input = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButton_rep4 = new javax.swing.JButton();
+        jButton_rep1 = new javax.swing.JButton();
+        jButton_rep3 = new javax.swing.JButton();
+        jButton_rep2 = new javax.swing.JButton();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -133,57 +139,74 @@ public class Client extends javax.swing.JFrame {
         jTextArea_messages.setFocusable(false);
         jScrollPane1.setViewportView(jTextArea_messages);
 
-        jTextField_input.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
+        jButton_rep4.setBackground(new java.awt.Color(0, 127, 1));
+        jButton_rep4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_rep4.setText("Reponse 4");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jButton1.setText("Envoyer");
-        jButton1.setPreferredSize(new java.awt.Dimension(6, 29));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_rep1.setBackground(new java.awt.Color(240, 79, 59));
+        jButton_rep1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_rep1.setText("Reponse 1");
+        jButton_rep1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_rep1ActionPerformed(evt);
             }
         });
+
+        jButton_rep3.setBackground(new java.awt.Color(255, 149, 9));
+        jButton_rep3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_rep3.setText("Reponse 3");
+
+        jButton_rep2.setBackground(new java.awt.Color(43, 56, 221));
+        jButton_rep2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_rep2.setText("Reponse 2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton_rep1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField_input, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)))
+                        .addComponent(jButton_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_rep1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                    .addComponent(jButton_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String texte = this.jTextField_input.getText();
+    private void jButton_rep1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep1ActionPerformed
+        // TODO add your handling code here:
         
-        if (texte == null)
-        {
-            this.addTexte("Kahoot", "Vous n'avez rien écrit");
-        } else {
-            this.addTexte("Vous", texte);
-            
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_rep1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,9 +246,12 @@ public class Client extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton_rep1;
+    private javax.swing.JButton jButton_rep2;
+    private javax.swing.JButton jButton_rep3;
+    private javax.swing.JButton jButton_rep4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea_messages;
-    private javax.swing.JTextField jTextField_input;
     // End of variables declaration//GEN-END:variables
 }

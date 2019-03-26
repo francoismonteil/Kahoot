@@ -13,13 +13,40 @@ import java.io.Serializable;
  */
 public class Reponse implements Serializable{
     private int noQuestion;
-    private String texteQuestion;
-    private int idQuestion;
+    private String texteReponse;
+    private int idReponse;
     
     public Reponse(int id, String texte, int idQuestion)
     {
         this.noQuestion = id;
-        this.texteQuestion = texte;
-        this.idQuestion = idQuestion;
+        this.texteReponse = texte;
+        this.idReponse = idQuestion;
     }
+
+    public int getNoQuestion() {
+        return noQuestion;
+    }
+
+    public void setNoQuestion(int noQuestion) {
+        this.noQuestion = noQuestion;
+    }
+
+    public String getTexteReponse() {
+        return texteReponse;
+    }
+
+    public void setTexteReponse(String texteReponse) {
+        this.texteReponse = texteReponse;
+    }
+
+    public int getIdReponse() {
+        return idReponse;
+    }
+
+    public void setIdReponse(int idReponse) {
+        this.idReponse = idReponse;
+    }
+
+    
+    
 }
