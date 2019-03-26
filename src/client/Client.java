@@ -5,11 +5,14 @@
  */
 package client;
 
+import java.io.BufferedOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metier.Reponse;
 
 /**
  *
@@ -20,6 +23,8 @@ public class Client extends javax.swing.JFrame {
     private Socket client;
     private PrintWriter print;
     private Ecouteur ecouteur;
+    private ObjectOutputStream streamOut = null;
+    private Reponse reponse;
     
     /**
      * Creates new form Client
@@ -29,6 +34,9 @@ public class Client extends javax.swing.JFrame {
         try {
             //On se connecte au serveur Kahoot
             this.connect();
+            
+            //On instancie la sortie
+            streamOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
             
             //On instancie un nouvel objet Ecouteur
             this.ecouteur = new Ecouteur(this.client, this.jTextArea_messages);
@@ -77,9 +85,17 @@ public class Client extends javax.swing.JFrame {
         System.exit(0);
     }
     
-    private void send()
+    private void send(Reponse reponse)
     {
-        
+        try
+        {
+            streamOut.writeObject(reponse);
+            streamOut.flush();
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Erreur à l'envoi de la réponse - " +ex.getMessage());
+        }
     }
     
     /**
@@ -159,6 +175,7 @@ public class Client extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String texte = this.jTextField_input.getText();
+        
         if (texte == null)
         {
             this.addTexte("Kahoot", "Vous n'avez rien écrit");
