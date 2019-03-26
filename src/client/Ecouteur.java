@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import metier.Question;
 import metier.Reponse;
@@ -23,7 +24,7 @@ import metier.Reponse;
 public class Ecouteur extends Thread{
     
     private Socket client;
-    private JTextArea dialog;
+    private JLabel dialog;
     private ObjectInputStream  streamIn;
     private Question question;
     private JButton button_rep1;
@@ -45,11 +46,11 @@ public class Ecouteur extends Thread{
      * @param rep3 
      * @param rep4 
      */
-    public Ecouteur(Socket client, JTextArea dialog, JButton rep1, JButton rep2, JButton rep3, JButton rep4)
+    public Ecouteur(Socket client, JLabel dialog, JButton rep1, JButton rep2, JButton rep3, JButton rep4)
     {
             this.client = client;
             this.dialog = dialog;
-            dialog.append("Client : Connexion au jeu Kahoot\n");
+            dialog.setText("Client : Connexion au jeu Kahoot\n");
             this.button_rep1 = rep1;
             this.button_rep2 = rep2;
             this.button_rep3 = rep3;
@@ -71,7 +72,7 @@ public class Ecouteur extends Thread{
                 question = (Question) this.streamIn.readObject();
                 System.out.println("SERVEUR - CLIENT : "+question.getTexteQuestion());
                 //On écrit le message reçu dans la zone de dialogue
-                dialog.append("Kahoot : "+question.getTexteQuestion()+"\n");
+                dialog.setText("Kahoot : "+question.getTexteQuestion()+"\n");
                 
                 if (question.getRepsPossibles() != null)
                 {
