@@ -71,15 +71,17 @@ public class EcouteurConnexion extends Thread{
     }
      private void ajoutConnexion(Socket uneSocket)
     {
+        nbClients++;
         System.out.println("Client accepté " + uneSocket + " Il y a désormais " + nbClients + " clients connectés");
+        zoneAffichage.append("\n["+System.currentTimeMillis()+"] Il y a désormais " + nbClients + " clients connectés");
         Connexion c = new Connexion(uneSocket,this);
         try
         {
             c.open();
             c.start();
-            nbClients++;
             synchronized(lesConnexionsClient){
             lesConnexionsClient.add(c);
+            c.send("Bienvenue joueur "+nbClients);
             }
         }
         catch (IOException ex)

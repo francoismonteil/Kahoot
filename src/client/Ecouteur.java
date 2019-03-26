@@ -5,49 +5,61 @@
  */
 package client;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
+/**
+ * Ecouteur : classe permettant d'écouter les messages en tant que processus parallèle 
+ * @author francois.monteil
+ */
 public class Ecouteur extends Thread{
     
-    private BufferedReader buffer;
-    private InputStreamReader input;
     private Socket client;
     private JTextArea dialog;
+    private DataInputStream  streamIn;
     
+    /**
+     * Ecouteur : On définit les attribut de la classe
+     * @param client
+     * @param dialog 
+     */
     public Ecouteur(Socket client, JTextArea dialog)
     {
         try {
             this.client = client;
-            input = new InputStreamReader(client.getInputStream());
-            buffer = new BufferedReader(input);
+            streamIn = new DataInputStream(new BufferedInputStream(client.getInputStream()));
             this.dialog = dialog;
         } catch (IOException ex) {
             Logger.getLogger(Ecouteur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    /**
+     * run : On démarre l'écoute permanente.
+     */
     @Override
     public void run()
     {
+        //Tant que le processus n'a pas été intérrompu : on écoute
         while (this.isInterrupted() == false)
         {
            String line;
-           dialog.append("Client : Connexion au jeu Kahoot");
+           dialog.append("Client : Connexion au jeu Kahoot\n");
             try {
-                while((line=buffer.readLine()) != null)
+                while((line=this.streamIn.readUTF()) != null)
                 {
                     System.out.println("SERVEUR - CLIENT : "+line);
-                    dialog.append("<b>Kahoot : </b>"+line+"\n");
+                    //On écrit le message reçu dans la zone de dialogue
+                    dialog.append("Kahoot : "+line+"\n");
                 }
             } catch (IOException ex) {
                try {
-                   this.buffer.close();
+                   this.streamIn.close();
                } catch (IOException ex1) {
                    Logger.getLogger(Ecouteur.class.getName()).log(Level.SEVERE, null, ex1);
                }
