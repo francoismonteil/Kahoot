@@ -32,13 +32,9 @@ public class Ecouteur extends Thread{
      */
     public Ecouteur(Socket client, JTextArea dialog)
     {
-        try {
             this.client = client;
-            streamIn = new ObjectInputStream(new BufferedInputStream(client.getInputStream()));
             this.dialog = dialog;
-        } catch (IOException ex) {
-            Logger.getLogger(Ecouteur.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            dialog.append("Client : Connexion au jeu Kahoot\n");
     }
     
     /**
@@ -50,9 +46,9 @@ public class Ecouteur extends Thread{
         //Tant que le processus n'a pas été intérrompu : on écoute
         while (this.isInterrupted() == false)
         {
-           
-            dialog.append("Client : Connexion au jeu Kahoot\n");
+          
             try {
+                streamIn = new ObjectInputStream(new  BufferedInputStream(client.getInputStream()));
                 question = (Question) this.streamIn.readObject();
                 System.out.println("SERVEUR - CLIENT : "+question.getTexteQuestion());
                 //On écrit le message reçu dans la zone de dialogue

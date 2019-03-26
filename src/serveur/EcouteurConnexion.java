@@ -76,18 +76,10 @@ public class EcouteurConnexion extends Thread{
         System.out.println("Client accepté " + uneSocket + " Il y a désormais " + nbClients + " clients connectés");
         zoneAffichage.append("\n["+System.currentTimeMillis()+"] Il y a désormais " + nbClients + " clients connectés");
         Connexion c = new Connexion(uneSocket,this);
-        try
-        {
-            c.open();
-            c.start();
-            synchronized(lesConnexionsClient){
-            lesConnexionsClient.add(c);
-            c.send("Bienvenue joueur "+nbClients);
-            }
-        }
-        catch (IOException ex)
-        {
-            System.out.println("Erreur à l'ouverture du thread " + ex);
+        //c.open();
+        c.start();
+        synchronized(lesConnexionsClient){
+        lesConnexionsClient.add(c);
         }
         etatConnexions();
     }
@@ -166,9 +158,10 @@ public class EcouteurConnexion extends Thread{
     public void envoieQuestion()
     {
         Question q = new Question();
-        lesConnexionsClient.forEach((c) -> {
+        for (Connexion c : lesConnexionsClient)
+        {
             c.send(q);
-        });
+        }        
     }
     public static void main(String[] args) /*throws InterruptedException*/ {
         

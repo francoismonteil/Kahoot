@@ -31,17 +31,12 @@ public class Connexion extends Thread{
         socketService= laSocket;
         monServeur = leServeur;
         ID = socketService.getPort();
-        try {
-            streamIn = new ObjectInputStream(new BufferedInputStream(socketService.getInputStream()));
-        } catch (IOException ex) {
-            System.out.println("Connexion : Problème d'instanciation du streamIn");
-            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     public void send(Object msg)
     {
         try
         {
+            streamOut = new ObjectOutputStream(new BufferedOutputStream(socketService.getOutputStream()));
             streamOut.writeObject(msg);
             streamOut.flush();
         }
@@ -57,8 +52,7 @@ public class Connexion extends Thread{
     {  
         streamIn = new ObjectInputStream(new 
                         BufferedInputStream(socketService.getInputStream()));
-        streamOut = new ObjectOutputStream(new
-                        BufferedOutputStream(socketService.getOutputStream()));
+        
     }
     public void close() throws IOException
     {
@@ -67,7 +61,7 @@ public class Connexion extends Thread{
         if (streamOut != null) streamOut.close();
     }
     
-    public synchronized void envoyerMessage(String msg)
+    /*public synchronized void envoyerMessage(String msg)
     {
         Connexion c;
         c = monServeur.findConnexion(ID);
@@ -83,12 +77,17 @@ public class Connexion extends Thread{
             monServeur.remove(ID);
         }
      
-    }
+    }*/
     @Override
     public void run() {
         
         while (this.isInterrupted() == false)
         {
+            try {
+                streamIn = new ObjectInputStream(new BufferedInputStream(socketService.getInputStream()));
+            } catch (IOException ex) {
+                Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
             String line;
             try {
                 while((line=this.streamIn.readUTF()) != null)

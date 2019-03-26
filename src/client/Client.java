@@ -211,11 +211,15 @@ public class Client extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Client.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        new Client().setVisible(true);
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Client().setVisible(true);
-        });
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                
+            }
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
