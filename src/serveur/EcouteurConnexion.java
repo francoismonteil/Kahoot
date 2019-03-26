@@ -5,7 +5,10 @@
  */
 package serveur;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -49,7 +52,7 @@ public class EcouteurConnexion extends Thread{
                     uneSocketClient = socketEcoute.accept();
                     zoneAffichage.append("\n["+System.currentTimeMillis()+"] Joueur connecté ! " + uneSocketClient);
                     ajoutConnexion(uneSocketClient);
-                    
+                    envoiQuestion(uneSocketClient);
                 }            
             } catch (IOException ex) {
                 //Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,6 +150,14 @@ public class EcouteurConnexion extends Thread{
         etatConnexions();
 
    }
+    
+    public void envoiQuestion(Socket uneSocket) throws IOException{
+        OutputStream os = uneSocket.getOutputStream();
+        OutputStreamWriter ow = new OutputStreamWriter(os);
+        BufferedWriter wr = new BufferedWriter(ow);
+        wr.write("Test\n");
+        wr.flush();
+    }
     public List<Connexion> getConnexions()
     {
         synchronized(lesConnexionsClient) {
@@ -161,19 +172,8 @@ public class EcouteurConnexion extends Thread{
             System.out.println("Connexion : "+ c.getName() + " - " + c.getID() + " Status : " + c.getState());
         }
     }
-    public static void main(String[] args) /*throws InterruptedException*/ {
-        
-        EcouteurConnexion monThreadServeur;
-        /*try {
-            monThreadServeur = new EcouteurConnexion();
-            monThreadServeur.start();
-            
-        } catch (IOException ex) 
-        {
-            Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        
-                
+    
+    public static void main(String[] args) /*throws InterruptedException*/ {      
     }
     
 }

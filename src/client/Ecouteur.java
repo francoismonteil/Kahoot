@@ -43,7 +43,7 @@ public class Ecouteur extends Thread{
                 while((line=buffer.readLine()) != null)
                 {
                     System.out.println("SERVEUR - CLIENT : "+line);
-                    dialog.append("<b>Kahoot : </b>"+line+"\n");
+                    dialog.append("Kahoot : "+line+"\n");
                 }
             } catch (IOException ex) {
                try {
