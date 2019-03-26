@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
 import metier.Question;
+import metier.Reponse;
 
 /**
  *
@@ -162,6 +163,11 @@ public class EcouteurConnexion extends Thread{
         {
             c.send(q);
         }        
+    }
+    
+    public void recupReponse(Reponse reponse)
+    {
+        zoneAffichage.append("Réponse client : ");
     }
     public static void main(String[] args) /*throws InterruptedException*/ {
         
