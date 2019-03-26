@@ -26,6 +26,8 @@ public class Connexion extends Thread{
     private int ID  = -1; 
     private ObjectInputStream  streamIn  =  null;
     private ObjectOutputStream streamOut = null;
+    private String pseudo;
+    private int score = 0;
     
     public Connexion(Socket laSocket,EcouteurConnexion leServeur)
     {
@@ -64,14 +66,22 @@ public class Connexion extends Thread{
     
     @Override
     public void run() {
-        
+        try {
+            ObjectInputStream streamPseudo = new ObjectInputStream(new BufferedInputStream(socketService.getInputStream()));
+            pseudo = streamPseudo.readObject().toString();
+            monServeur.etatConnexions();
+        } catch (IOException ex) {
+            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         while (this.isInterrupted() == false)
         {
             try {
                 streamIn = new ObjectInputStream(new BufferedInputStream(socketService.getInputStream()));
                 try {
                     reponse = (Reponse) this.streamIn.readObject();
-                    monServeur.recupReponse(reponse);
+                    monServeur.recupReponse(reponse, this);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -88,5 +98,12 @@ public class Connexion extends Thread{
     public void setID(int ID) {
         this.ID = ID;
     }
+
+    public String getPseudo() {
+        return pseudo;
+    }
     
+    public void augmenterScore(){
+        score++;
+    }
 }

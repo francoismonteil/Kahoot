@@ -36,7 +36,7 @@ public class Client extends javax.swing.JFrame {
             this.connect();
             
             //On instancie la sortie
-            streamOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
+            
             
             //On instancie un nouvel objet Ecouteur
             this.ecouteur = new Ecouteur(this.client, this.jLabel_header,
@@ -80,6 +80,7 @@ public class Client extends javax.swing.JFrame {
     {
         try
         {
+            streamOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
             streamOut.writeObject(reponse);
             streamOut.flush();
         }

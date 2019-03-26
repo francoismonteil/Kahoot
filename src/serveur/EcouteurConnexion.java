@@ -23,14 +23,17 @@ import metier.Reponse;
 public class EcouteurConnexion extends Thread{
     
     private JTextArea zoneAffichage;
+    private JTextArea zoneClient;
     private ServerSocket socketEcoute = null;
     protected static List<Connexion> lesConnexionsClient = new ArrayList<Connexion>();
     protected int nbClients = 0;
+    Reponse r;
    
-    public EcouteurConnexion(JTextArea ta) throws IOException
+    public EcouteurConnexion(JTextArea ta, JTextArea tb) throws IOException
     {
         System.out.println("Serveur - Ouverture d'un SocketServer sur le port 50000 ");
         this.zoneAffichage = ta;
+        this.zoneClient = tb;
         ta.append("["+System.currentTimeMillis()+"] Serveur - Ouverture d'un SocketServer sur le port 50000\n");
         socketEcoute = new ServerSocket(50000);
         System.out.println("Serveur démarré : " + socketEcoute);
@@ -51,7 +54,6 @@ public class EcouteurConnexion extends Thread{
                     uneSocketClient = socketEcoute.accept();
                     zoneAffichage.append("\n["+System.currentTimeMillis()+"] Joueur connecté ! " + uneSocketClient);
                     ajoutConnexion(uneSocketClient);
-                    
                 }            
             } catch (IOException ex) {
                 //Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,7 +84,6 @@ public class EcouteurConnexion extends Thread{
         synchronized(lesConnexionsClient){
         lesConnexionsClient.add(c);
         }
-        etatConnexions();
     }
      
     public synchronized void handle(int ID,String msg)
@@ -139,7 +140,6 @@ public class EcouteurConnexion extends Thread{
             Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Serveur.remove : Il reste " + nbClients + " clients conectés");
-        etatConnexions();
 
    }
     public List<Connexion> getConnexions()
@@ -150,25 +150,32 @@ public class EcouteurConnexion extends Thread{
     }
     public void etatConnexions()
     {
-        System.out.println("Clients connectés : ");
+        zoneClient.setText("");
         lesConnexionsClient.forEach((c) -> {
-            System.out.println("Connexion : "+ c.getName() + " - " + c.getID() + " Status : " + c.getState());
+        zoneClient.append("\nConnexion : "+ c.getName() + " - Pseudo : " + c.getPseudo() + " - Status : " + c.getState());
         });
     }
     
     public void envoieQuestion()
     {
         Question q = new Question();
+        r = q.getResExacte();
         for (Connexion c : lesConnexionsClient)
         {
             c.send(q);
         }        
     }
     
-    public void recupReponse(Reponse reponse)
+    public void recupReponse(Reponse reponse, Connexion client)
     {
-        zoneAffichage.append("\nRéponse client : " + reponse.getTexteReponse());
+        zoneAffichage.append("\nRéponse de [" + client.getPseudo() +"] : " + reponse.getTexteReponse());
+        client.send(r);
+        if(reponse == r)
+        {
+            client.augmenterScore();
+        }
     }
+    
     public static void main(String[] args) /*throws InterruptedException*/ {
         
         EcouteurConnexion monThreadServeur;
