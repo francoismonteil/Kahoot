@@ -35,7 +35,14 @@ public class Client extends javax.swing.JFrame {
         try {
             //On se connecte au serveur Kahoot
             this.connect();
+<<<<<<< HEAD
                         
+=======
+            
+            //On instancie la sortie
+            
+            
+>>>>>>> 5c40b39d0ea3af9cc753887cf30a7bdba42099bd
             //On instancie un nouvel objet Ecouteur
             this.ecouteur = new Ecouteur(this.client, this.jLabel_header,
             this.jButton_rep1, this.jButton_rep2, this.jButton_rep3, this.jButton_rep4);
@@ -78,7 +85,10 @@ public class Client extends javax.swing.JFrame {
     {
         try
         {
+<<<<<<< HEAD
             //On instancie la sortie
+=======
+>>>>>>> 5c40b39d0ea3af9cc753887cf30a7bdba42099bd
             streamOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
             streamOut.writeObject(reponse);
             streamOut.flush();
