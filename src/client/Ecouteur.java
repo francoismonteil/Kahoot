@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import metier.Question;
 import metier.Reponse;
 
@@ -23,18 +22,19 @@ import metier.Reponse;
  */
 public class Ecouteur extends Thread{
     
-    private Socket client;
-    private JLabel dialog;
+    private final Socket client;
+    private final JLabel dialog;
     private ObjectInputStream  streamIn;
     private Question question;
-    private JButton button_rep1;
-    private JButton button_rep2;
-    private JButton button_rep3;
-    private JButton button_rep4;
+    private final JButton button_rep1;
+    private final JButton button_rep2;
+    private final JButton button_rep3;
+    private final JButton button_rep4;
     private Reponse rep1;
     private Reponse rep2;
     private Reponse rep3;
     private Reponse rep4;
+    private Reponse repExacte;
     
     
     /**
@@ -68,12 +68,15 @@ public class Ecouteur extends Thread{
         {
           
             try {
+                //On réceptionne la question du serveur Kahoot
                 streamIn = new ObjectInputStream(new  BufferedInputStream(client.getInputStream()));
                 question = (Question) this.streamIn.readObject();
                 System.out.println("SERVEUR - CLIENT : "+question.getTexteQuestion());
+                
                 //On écrit le message reçu dans la zone de dialogue
                 dialog.setText("Kahoot : "+question.getTexteQuestion()+"\n");
                 
+                //On affiche les différentes réponse possible sur les boutons clickable
                 if (question.getRepsPossibles() != null)
                 {
                     if (question.getRepsPossibles().get(0) != null)
@@ -109,7 +112,13 @@ public class Ecouteur extends Thread{
                     else
                         this.button_rep4.setEnabled(false);
                 }
-               
+                
+                //Réccupération de la réponse exacte
+                streamIn = new ObjectInputStream(new  BufferedInputStream(client.getInputStream()));
+                repExacte = (Reponse) this.streamIn.readObject();
+                
+                //client.getReponse();
+                           
                 
             } catch (IOException ex) {
                try {

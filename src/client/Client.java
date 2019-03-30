@@ -25,6 +25,7 @@ public class Client extends javax.swing.JFrame {
     private Ecouteur ecouteur;
     private ObjectOutputStream streamOut = null;
     private Reponse reponse;
+    private int Points = 0;
     
     /**
      * Creates new form Client
@@ -34,10 +35,7 @@ public class Client extends javax.swing.JFrame {
         try {
             //On se connecte au serveur Kahoot
             this.connect();
-            
-            //On instancie la sortie
-            streamOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
-            
+                        
             //On instancie un nouvel objet Ecouteur
             this.ecouteur = new Ecouteur(this.client, this.jLabel_header,
             this.jButton_rep1, this.jButton_rep2, this.jButton_rep3, this.jButton_rep4);
@@ -80,6 +78,8 @@ public class Client extends javax.swing.JFrame {
     {
         try
         {
+            //On instancie la sortie
+            streamOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
             streamOut.writeObject(reponse);
             streamOut.flush();
         }
@@ -101,6 +101,7 @@ public class Client extends javax.swing.JFrame {
         }
     }
     
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,6 +119,7 @@ public class Client extends javax.swing.JFrame {
         jLabel_header = new javax.swing.JLabel();
         jTextField_pseudo = new javax.swing.JTextField();
         jButton_pseudo = new javax.swing.JButton();
+        jLabel_resultat = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -176,38 +178,52 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jLabel_resultat.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel_resultat.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel_resultat.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_header)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton_rep1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton_rep1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField_pseudo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton_pseudo)))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel_header)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField_pseudo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton_pseudo)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(152, 152, 152)
+                .addComponent(jLabel_resultat)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel_header, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_pseudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_pseudo))
-                .addGap(2, 2, 2)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_rep1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,7 +231,9 @@ public class Client extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel_resultat)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,21 +242,25 @@ public class Client extends javax.swing.JFrame {
     private void jButton_rep1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep1ActionPerformed
         // TODO add your handling code here:
         send(ecouteur.getRep1());
+        this.reponse = ecouteur.getRep1();
     }//GEN-LAST:event_jButton_rep1ActionPerformed
 
     private void jButton_rep2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep2ActionPerformed
         // TODO add your handling code here:
         send(ecouteur.getRep2());
+        this.reponse = ecouteur.getRep2();
     }//GEN-LAST:event_jButton_rep2ActionPerformed
 
     private void jButton_rep3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep3ActionPerformed
         // TODO add your handling code here:
         send(ecouteur.getRep3());
+        this.reponse = ecouteur.getRep3();
     }//GEN-LAST:event_jButton_rep3ActionPerformed
 
     private void jButton_rep4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep4ActionPerformed
         // TODO add your handling code here:
         send(ecouteur.getRep4());
+        this.reponse = ecouteur.getRep4();
     }//GEN-LAST:event_jButton_rep4ActionPerformed
 
     private void jButton_pseudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_pseudoActionPerformed
@@ -293,6 +315,7 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JButton jButton_rep4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel_header;
+    private javax.swing.JLabel jLabel_resultat;
     private javax.swing.JTextField jTextField_pseudo;
     // End of variables declaration//GEN-END:variables
 }
