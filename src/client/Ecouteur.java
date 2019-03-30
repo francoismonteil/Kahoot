@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import metier.Question;
 import metier.Reponse;
 
@@ -23,13 +21,9 @@ import metier.Reponse;
 public class Ecouteur extends Thread{
     
     private final Socket client;
-    private final JLabel dialog;
     private ObjectInputStream  streamIn;
     private Question question;
-    private final JButton button_rep1;
-    private final JButton button_rep2;
-    private final JButton button_rep3;
-    private final JButton button_rep4;
+    private final Client formClient;
     private Reponse rep1;
     private Reponse rep2;
     private Reponse rep3;
@@ -40,21 +34,12 @@ public class Ecouteur extends Thread{
     /**
      * Ecouteur : On définit les attribut de la classe
      * @param client
-     * @param dialog 
-     * @param rep1 
-     * @param rep2 
-     * @param rep3 
-     * @param rep4 
+     * @param formClient
      */
-    public Ecouteur(Socket client, JLabel dialog, JButton rep1, JButton rep2, JButton rep3, JButton rep4)
+    public Ecouteur(Socket client, Client formClient)
     {
             this.client = client;
-            this.dialog = dialog;
-            dialog.setText("Client : Connexion au jeu Kahoot\n");
-            this.button_rep1 = rep1;
-            this.button_rep2 = rep2;
-            this.button_rep3 = rep3;
-            this.button_rep4 = rep4;
+            this.formClient = formClient;
     }
     
     /**
@@ -74,50 +59,30 @@ public class Ecouteur extends Thread{
                 System.out.println("SERVEUR - CLIENT : "+question.getTexteQuestion());
                 
                 //On écrit le message reçu dans la zone de dialogue
-                dialog.setText("Kahoot : "+question.getTexteQuestion()+"\n");
+                this.formClient.setQuestion("Kahoot : "+question.getTexteQuestion()+"\n");
+                //dialog.setText("Kahoot : "+question.getTexteQuestion()+"\n");
                 
                 //On affiche les différentes réponse possible sur les boutons clickable
                 if (question.getRepsPossibles() != null)
                 {
-                    if (question.getRepsPossibles().get(0) != null)
-                    {
-                        this.button_rep1.setEnabled(true);
-                        this.button_rep1.setText(question.getRepsPossibles().get(0).getTexteReponse());
-                        this.rep1 = question.getRepsPossibles().get(0);
-                    }
-                    else
-                        this.button_rep1.setEnabled(false);
-                    if (question.getRepsPossibles().get(1) != null)
-                    {
-                        this.button_rep2.setEnabled(true);
-                        this.button_rep2.setText(question.getRepsPossibles().get(1).getTexteReponse());
-                        this.rep2 = question.getRepsPossibles().get(1);
-                    }
-                    else
-                        this.button_rep2.setEnabled(false);
-                    if (question.getRepsPossibles().get(2) != null)
-                    {
-                        this.button_rep3.setEnabled(true);
-                        this.button_rep3.setText(question.getRepsPossibles().get(2).getTexteReponse());
-                        this.rep3 = question.getRepsPossibles().get(2);
-                    }
-                    else
-                        this.button_rep3.setEnabled(false);
-                    if (question.getRepsPossibles().get(3) != null)
-                    {
-                        this.button_rep4.setEnabled(true);
-                        this.button_rep4.setText(question.getRepsPossibles().get(3).getTexteReponse());
-                        this.rep4 = question.getRepsPossibles().get(3);
-                    }
-                    else
-                        this.button_rep4.setEnabled(false);
+                    String reponse[] = {question.getRepsPossibles().get(0).getTexteReponse(),
+                        question.getRepsPossibles().get(1).getTexteReponse(),
+                        question.getRepsPossibles().get(2).getTexteReponse(),
+                        question.getRepsPossibles().get(3).getTexteReponse()};
+                    
+                    this.formClient.setButtons(reponse);
+                    
+                     this.rep1 = question.getRepsPossibles().get(0);
+                     this.rep2 = question.getRepsPossibles().get(1);
+                     this.rep3 = question.getRepsPossibles().get(2);
+                     this.rep4 = question.getRepsPossibles().get(3);
+                    
                 }
                 
                 //Réccupération de la réponse exacte
                 streamIn = new ObjectInputStream(new  BufferedInputStream(client.getInputStream()));
                 repExacte = (Reponse) this.streamIn.readObject();
                 
-                //client.getReponse();
                            
                 
             } catch (IOException ex) {

@@ -34,18 +34,10 @@ public class Client extends javax.swing.JFrame {
         initComponents();
         try {
             //On se connecte au serveur Kahoot
-            this.connect();
-<<<<<<< HEAD
-                        
-=======
-            
-            //On instancie la sortie
-            
-            
->>>>>>> 5c40b39d0ea3af9cc753887cf30a7bdba42099bd
+            this.connect();       
+           
             //On instancie un nouvel objet Ecouteur
-            this.ecouteur = new Ecouteur(this.client, this.jLabel_header,
-            this.jButton_rep1, this.jButton_rep2, this.jButton_rep3, this.jButton_rep4);
+            this.ecouteur = new Ecouteur(this.client, this);
             this.ecouteur.start();
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,10 +77,7 @@ public class Client extends javax.swing.JFrame {
     {
         try
         {
-<<<<<<< HEAD
             //On instancie la sortie
-=======
->>>>>>> 5c40b39d0ea3af9cc753887cf30a7bdba42099bd
             streamOut = new ObjectOutputStream(new BufferedOutputStream(client.getOutputStream()));
             streamOut.writeObject(reponse);
             streamOut.flush();
@@ -111,6 +100,52 @@ public class Client extends javax.swing.JFrame {
         }
     }
     
+    public void compareReponse(Reponse repExacte)
+    {
+        if (reponse == repExacte)
+        {
+            this.jLabel_resultat.setText("Bien joué !");
+        }else{
+            this.jLabel_resultat.setText("Bonne réponse : "+repExacte.getTexteReponse());
+        }
+    }
+    
+    public void setQuestion(String question)
+    {
+        this.jLabel_header.setText(question);
+    }
+    
+    public void setButtons(String reponse[])
+    {
+        if (reponse[0] != null)
+        {
+            this.jButton_rep1.setEnabled(true);
+            this.jButton_rep1.setText(reponse[0]);
+        }else{
+            this.jButton_rep1.setEnabled(false);
+        }
+        if (reponse[1] != null)
+        {
+            this.jButton_rep2.setEnabled(true);
+            this.jButton_rep2.setText(reponse[1]);
+        }else{
+            this.jButton_rep2.setEnabled(false);
+        }
+        if (reponse[2] != null)
+        {
+            this.jButton_rep3.setEnabled(true);
+            this.jButton_rep3.setText(reponse[2]);
+        }else{
+            this.jButton_rep3.setEnabled(false);
+        }
+        if (reponse[3] != null)
+        {
+            this.jButton_rep4.setEnabled(true);
+            this.jButton_rep4.setText(reponse[3]);
+        }else{
+            this.jButton_rep4.setEnabled(false);
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
