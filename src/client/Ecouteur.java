@@ -84,7 +84,10 @@ public class Ecouteur extends Thread{
                 repExacte = (Reponse) this.streamIn.readObject();
                 this.formClient.setResultat(repExacte);
                 
-                          
+                //Réccupération du score
+                streamIn = new ObjectInputStream(new  BufferedInputStream(client.getInputStream()));
+                int score = (int) this.streamIn.readObject();
+                this.formClient.setScore(score);
                 
             } catch (IOException ex) {
                try {
