@@ -170,10 +170,12 @@ public class EcouteurConnexion extends Thread{
     {
         zoneAffichage.append("\nRéponse de [" + client.getPseudo() +"] : " + reponse.getTexteReponse());
         client.send(r);
-        if(reponse == r)
+        System.out.println(reponse.getTexteReponse()+" - "+r.getTexteReponse());
+        if(reponse.getTexteReponse() == null ? r.getTexteReponse() == null : reponse.getTexteReponse().equals(r.getTexteReponse()))
         {
             client.augmenterScore();
         }
+        client.envoyer_score();
     }
     
     public static void main(String[] args) /*throws InterruptedException*/ {

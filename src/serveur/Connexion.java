@@ -106,4 +106,10 @@ public class Connexion extends Thread{
     public void augmenterScore(){
         score++;
     }
+    
+    public void envoyer_score()
+    {
+        this.send(score);
+        System.out.println("Envoi du score : "+score);
+    }
 }
