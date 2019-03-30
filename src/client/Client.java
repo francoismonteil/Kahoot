@@ -5,6 +5,7 @@
  */
 package client;
 
+import java.awt.Color;
 import java.io.BufferedOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
@@ -147,6 +148,18 @@ public class Client extends javax.swing.JFrame {
         }
     }
     
+    public void setResultat(Reponse repExacte)
+    {
+        if(this.reponse.getTexteReponse() == null ? repExacte.getTexteReponse() == null : this.reponse.getTexteReponse().equals(repExacte.getTexteReponse()))
+        {
+            this.jLabel_resultat.setForeground(Color.green);
+            this.jLabel_resultat.setText("Bonne réponse !");
+        }else{
+            this.jLabel_resultat.setForeground(Color.red);
+            this.jLabel_resultat.setText("Erreur : "+repExacte.getTexteReponse());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -223,18 +236,19 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
-        jLabel_resultat.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel_resultat.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel_resultat.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel_resultat.setText("jLabel1");
+        jLabel_resultat.setText("En attente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,24 +259,20 @@ public class Client extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton_rep2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_header)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextField_pseudo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton_pseudo)))
+                                .addComponent(jButton_pseudo))
+                            .addComponent(jLabel_resultat))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(152, 152, 152)
-                .addComponent(jLabel_resultat)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jLabel_header, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -276,9 +286,9 @@ public class Client extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_rep3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_rep4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel_resultat)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -288,26 +298,39 @@ public class Client extends javax.swing.JFrame {
         // TODO add your handling code here:
         send(ecouteur.getRep1());
         this.reponse = ecouteur.getRep1();
+        this.disable_all_button();
     }//GEN-LAST:event_jButton_rep1ActionPerformed
 
     private void jButton_rep2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep2ActionPerformed
         // TODO add your handling code here:
         send(ecouteur.getRep2());
         this.reponse = ecouteur.getRep2();
+        this.disable_all_button();
     }//GEN-LAST:event_jButton_rep2ActionPerformed
 
     private void jButton_rep3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep3ActionPerformed
         // TODO add your handling code here:
         send(ecouteur.getRep3());
         this.reponse = ecouteur.getRep3();
+        this.disable_all_button();
     }//GEN-LAST:event_jButton_rep3ActionPerformed
 
     private void jButton_rep4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rep4ActionPerformed
         // TODO add your handling code here:
         send(ecouteur.getRep4());
         this.reponse = ecouteur.getRep4();
+        this.disable_all_button();        
     }//GEN-LAST:event_jButton_rep4ActionPerformed
 
+    private void disable_all_button()
+    {
+        this.jButton_rep1.setEnabled(false);
+        this.jButton_rep2.setEnabled(false);
+        this.jButton_rep3.setEnabled(false);
+        this.jButton_rep4.setEnabled(false);
+        
+    }
+    
     private void jButton_pseudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_pseudoActionPerformed
         // TODO add your handling code here:
         send(this.jTextField_pseudo.getText());
