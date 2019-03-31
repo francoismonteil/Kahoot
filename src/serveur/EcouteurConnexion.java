@@ -159,7 +159,7 @@ public class EcouteurConnexion extends Thread{
     public void envoieQuestion()
     {
         Question q = new Question();
-        r = q.getResExacte();
+        r = q.getRepExacte();
         for (Connexion c : lesConnexionsClient)
         {
             c.send(q);
@@ -169,7 +169,7 @@ public class EcouteurConnexion extends Thread{
     public void recupReponse(Reponse reponse, Connexion client)
     {
         zoneAffichage.append("\nRéponse de [" + client.getPseudo() +"] : " + reponse.getTexteReponse());
-        client.send(r);
+        //client.send(r);
         System.out.println(reponse.getTexteReponse()+" - "+r.getTexteReponse());
         if(reponse.getTexteReponse() == null ? r.getTexteReponse() == null : reponse.getTexteReponse().equals(r.getTexteReponse()))
         {
