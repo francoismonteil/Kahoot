@@ -60,7 +60,7 @@ public class Ecouteur extends Thread{
                 
                 //On écrit le message reçu dans la zone de dialogue
                 this.formClient.setQuestion("Kahoot : "+question.getTexteQuestion()+"\n");
-                //dialog.setText("Kahoot : "+question.getTexteQuestion()+"\n");
+                this.formClient.resetResultat();
                 
                 //On affiche les différentes réponse possible sur les boutons clickable
                 if (question.getRepsPossibles() != null)
@@ -78,16 +78,16 @@ public class Ecouteur extends Thread{
                      this.rep4 = question.getRepsPossibles().get(3);
                     
                 }
+                               
+                //Réccupération du score
+                streamIn = new ObjectInputStream(new  BufferedInputStream(client.getInputStream()));
+                int score = (int) this.streamIn.readObject();
+                this.formClient.setScore(score);
                 
                 //Réccupération de la réponse exacte
                 //streamIn = new ObjectInputStream(new  BufferedInputStream(client.getInputStream()));
                 //repExacte = (Reponse) this.streamIn.readObject();
                 this.formClient.setResultat(question.getRepExacte());
-                
-                //Réccupération du score
-                streamIn = new ObjectInputStream(new  BufferedInputStream(client.getInputStream()));
-                int score = (int) this.streamIn.readObject();
-                this.formClient.setScore(score);
                 
             } catch (IOException ex) {
                try {

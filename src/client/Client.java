@@ -160,6 +160,12 @@ public class Client extends javax.swing.JFrame {
         }
     }
     
+    public void resetResultat()
+    {
+        this.jLabel_resultat.setForeground(Color.gray);
+        this.jLabel_resultat.setText("En attente");
+    }
+    
     public void setScore(int score)
     {
         this.jLabel_score.setText("Points : "+score);
