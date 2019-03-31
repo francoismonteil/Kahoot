@@ -86,7 +86,9 @@ public class Connexion extends Thread{
                     Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+                //On retire le client de la liste des connexions
+                this.monServeur.remove(this.ID);
+                //Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
             }            
         }
     }

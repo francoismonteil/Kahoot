@@ -135,6 +135,7 @@ public class EcouteurConnexion extends Thread{
             System.out.println("Fermeture du thread d'écoute client " + ID);
             uneConnexion.close();
             uneConnexion.interrupt();
+            this.etatConnexions();
         } catch (IOException ex) 
         {
             Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
