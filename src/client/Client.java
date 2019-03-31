@@ -101,16 +101,6 @@ public class Client extends javax.swing.JFrame {
         }
     }
     
-    public void compareReponse(Reponse repExacte)
-    {
-        if (reponse == repExacte)
-        {
-            this.jLabel_resultat.setText("Bien joué !");
-        }else{
-            this.jLabel_resultat.setText("Bonne réponse : "+repExacte.getTexteReponse());
-        }
-    }
-    
     public void setQuestion(String question)
     {
         this.jLabel_header.setText(question);
@@ -168,6 +158,7 @@ public class Client extends javax.swing.JFrame {
     
     public void setScore(int score)
     {
+        this.Points=score;
         this.jLabel_score.setText("Points : "+score);
     }
     
