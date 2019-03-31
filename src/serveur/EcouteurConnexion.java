@@ -22,8 +22,8 @@ import metier.Reponse;
  */
 public class EcouteurConnexion extends Thread{
     
-    private JTextArea zoneAffichage;
-    private JTextArea zoneClient;
+    private final JTextArea zoneAffichage;
+    private final JTextArea zoneClient;
     private ServerSocket socketEcoute = null;
     protected static List<Connexion> lesConnexionsClient = new ArrayList<Connexion>();
     protected int nbClients = 0;
