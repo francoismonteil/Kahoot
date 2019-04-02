@@ -22,6 +22,12 @@ public class Reponse implements Serializable{
         this.texteReponse = texte;
         this.idReponse = idQuestion;
     }
+    
+    public Reponse(int id, String texte)
+    {
+        this.noQuestion = id;
+        this.texteReponse = texte;
+    }
 
     public int getNoQuestion() {
         return noQuestion;

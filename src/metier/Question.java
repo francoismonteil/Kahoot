@@ -20,6 +20,8 @@ public class Question implements Serializable{
     private Reponse repExacte;
     private List<Reponse> repUtilisateur;
     
+    
+    
     public Question()
     {
         this.noQuestion = 1;
@@ -36,6 +38,24 @@ public class Question implements Serializable{
         Reponse rep4 = new Reponse(4, "Colonel Sanders", this.noQuestion);
         this.repsPossibles.add(rep4);
         this.repExacte = rep1;
+    }
+
+    Question(String question, String rep1T, String rep2T, String rep3T, String rep4T, String repExacteT) {
+        this.texteQuestion = question;
+        this.repsPossibles = new ArrayList<>();
+        this.repUtilisateur = new ArrayList<>();
+        
+        Reponse rep1 = new Reponse(1, rep1T);
+        this.repsPossibles.add(rep1);
+        Reponse rep2 = new Reponse(2, rep2T);
+        this.repsPossibles.add(rep2);
+        Reponse rep3 = new Reponse(3, rep3T);
+        this.repsPossibles.add(rep3);
+        Reponse rep4 = new Reponse(4, rep4T);
+        this.repsPossibles.add(rep4);
+        Reponse repExacte = new Reponse(5, repExacteT);
+        this.repExacte = repExacte;
+        
     }
     
     public int getNoQuestion() {
