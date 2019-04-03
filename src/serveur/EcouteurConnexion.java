@@ -157,9 +157,9 @@ public class EcouteurConnexion extends Thread{
         });
     }
     
-    public void envoieQuestion()
+    public void envoieQuestion(Question q)
     {
-        Question q = new Question();
+        
         r = q.getRepExacte();
         for (Connexion c : lesConnexionsClient)
         {
