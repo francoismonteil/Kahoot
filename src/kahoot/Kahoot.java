@@ -26,7 +26,7 @@ public class Kahoot {
         Json2Question json = new Json2Question();
         
         try {
-            ArrayList<Question> listeQuestion = json.getQuestion(3);
+            ArrayList<Question> listeQuestion = json.getQuestion(9);
             System.out.println(listeQuestion);
         } catch (IOException ex) {
             Logger.getLogger(Kahoot.class.getName()).log(Level.SEVERE, null, ex);

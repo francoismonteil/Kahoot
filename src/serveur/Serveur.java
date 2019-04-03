@@ -6,8 +6,11 @@
 package serveur;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import metier.Json2Question;
+import metier.Question;
 
 /**
  *
@@ -15,11 +18,19 @@ import java.util.logging.Logger;
  */
 public class Serveur extends javax.swing.JFrame {
     private EcouteurConnexion srv;
+    private List<Question> questions;
+    private int nbrQuestion = 10;
     /**
      * Creates new form Serveur
      */
     public Serveur() {
         initComponents();
+        Json2Question json = new Json2Question();
+        try {
+            questions = json.getQuestion(nbrQuestion);
+        } catch (IOException ex) {
+            Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -159,7 +170,8 @@ public class Serveur extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // Lancer les questions aux clients
-        srv.envoieQuestion();
+        int nombreAleatoire = 0 + (int)(Math.random() * ((nbrQuestion - 0) + 1));
+        srv.envoieQuestion(questions.get(nombreAleatoire));
 
     }//GEN-LAST:event_jButton2MouseClicked
 

@@ -226,7 +226,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
-        jLabel_header.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_header.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_header.setText("Kahoot");
 
         jTextField_pseudo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
