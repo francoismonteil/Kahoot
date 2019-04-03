@@ -5,14 +5,12 @@
  */
 package metier;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  *
@@ -46,7 +44,7 @@ public class Json2Question {
     
     public ArrayList<Question> getQuestion(Integer nbQuestion) throws IOException
     {
-        ArrayList<String> questionFromFile = this.getQuestionFromFile("D:\\Dossiers\\Documents\\NetBeansProjects\\ProjetKahoot\\Question.txt");
+        ArrayList<String> questionFromFile = this.getQuestionFromFile("c:\\openquizzdb_452.txt");
         ArrayList<Question> listeQuestion = new ArrayList<>();
         
         if (nbQuestion > questionFromFile.size())

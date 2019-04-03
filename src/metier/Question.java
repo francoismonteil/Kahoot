@@ -18,7 +18,7 @@ public class Question implements Serializable{
     public String texteQuestion;
     private List<Reponse> repsPossibles;
     private Reponse repExacte;
-    private List<Reponse> repUtilisateur;
+    private Reponse repUtilisateur;
     
     
     
@@ -27,7 +27,6 @@ public class Question implements Serializable{
         this.noQuestion = 1;
         this.texteQuestion = "Quel est le vrai nom de M.Bean ?";
         this.repsPossibles = new ArrayList<>();
-        this.repUtilisateur = new ArrayList<>();
         
         Reponse rep1 = new Reponse(1, "Rowan Atkinson", this.noQuestion);
         this.repsPossibles.add(rep1);
@@ -43,7 +42,6 @@ public class Question implements Serializable{
     Question(String question, String rep1T, String rep2T, String rep3T, String rep4T, String repExacteT) {
         this.texteQuestion = question;
         this.repsPossibles = new ArrayList<>();
-        this.repUtilisateur = new ArrayList<>();
         
         Reponse rep1 = new Reponse(1, rep1T);
         this.repsPossibles.add(rep1);
@@ -53,8 +51,8 @@ public class Question implements Serializable{
         this.repsPossibles.add(rep3);
         Reponse rep4 = new Reponse(4, rep4T);
         this.repsPossibles.add(rep4);
-        Reponse repExacte = new Reponse(5, repExacteT);
-        this.repExacte = repExacte;
+        Reponse repExacteL = new Reponse(5, repExacteT);
+        this.repExacte = repExacteL;
         
     }
     
@@ -90,11 +88,11 @@ public class Question implements Serializable{
         this.repExacte = repExacte;
     }
 
-    public List<Reponse> getRepUtilisateur() {
+    public Reponse getRepUtilisateur() {
         return repUtilisateur;
     }
 
-    public void setRepUtilisateur(List<Reponse> repUtilisateur) {
+    public void setRepUtilisateur(Reponse repUtilisateur) {
         this.repUtilisateur = repUtilisateur;
     }
     

@@ -6,9 +6,11 @@
 package kahoot;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static metier.Json2Question.generateQuestion;
+import metier.Json2Question;
+import metier.Question;
 
 /**
  *
@@ -20,10 +22,12 @@ public class Kahoot {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        Json2Question json = new Json2Question();
+        
         try {
-            // TODO code application logic here
-
-            generateQuestion();
+            ArrayList<Question> listeQuestion = json.getQuestion(3);
+            System.out.println(listeQuestion);
         } catch (IOException ex) {
             Logger.getLogger(Kahoot.class.getName()).log(Level.SEVERE, null, ex);
         }
