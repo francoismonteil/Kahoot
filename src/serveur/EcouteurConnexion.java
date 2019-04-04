@@ -159,7 +159,6 @@ public class EcouteurConnexion extends Thread{
     
     public void envoieQuestion(Question q)
     {
-        
         r = q.getRepExacte();
         for (Connexion c : lesConnexionsClient)
         {
